@@ -43,4 +43,4 @@ button = tk.Button(window,text = 'Unsubscribe', width=40,command=lambda: check(e
 button.bind('<Return>',lambda _: check(email_id.get(), keywords.get(), False))
 button.pack(side = TOP, expand = True, fill = None)
 
-window.mainloop() 
+window.mainloop()
