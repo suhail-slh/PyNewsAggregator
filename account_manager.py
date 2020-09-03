@@ -51,4 +51,4 @@ class AccountManager:
 	def get_links(self):
 		for keyword in self.keywords.split(','):
 			KP = KeywordProcessor(keyword)
-			self.links.append(KP.most_relevant()) 
+			self.links.append(KP.most_relevant())
