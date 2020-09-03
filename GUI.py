@@ -3,9 +3,7 @@ try:
 	import tkinter as tk
 	from tkinter import *
 except:
-	print("module tkinter not installed")
-
-account = AccountManager()
+	print("missing module: tkinter")
 
 window = tk.Tk(screenName="PyNewsAggregator",baseName=None,className='PyNewsAggregator',useTk=1)
 
@@ -19,10 +17,11 @@ notify.pack_forget()
 def check(email_id, keywords, sub):
 	global notify
 	notify.pack_forget()
+	account = AccountManager(email_id, keywords)
 	if sub == True and len(email_id) != 0 and len(keywords) != 0: 
-		account.subscribe(email_id, keywords)
+		account.subscribe()
 	elif sub == False and len(email_id) != 0:
-		account.unsubscribe(email_id)
+		account.unsubscribe()
 	else:
 		notify = Message(window,text = "Missing Input")
 		notify.config(width=150)
