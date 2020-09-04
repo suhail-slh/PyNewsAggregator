@@ -27,7 +27,6 @@ class AccountManager:
     def __init__(self, email_id, keywords):
         self.email_id = email_id.strip()
         self.keywords = keywords.strip()
-        self.links = []
 
     def subscribe(self):
         global df
@@ -36,12 +35,7 @@ class AccountManager:
 
         save()
 
-        self.get_links()
-
-        # replace with send_mail function
-        print("Keywords:", self.keywords)
-        for link in self.links:
-            print(link)
+        self.display_articles()
 
     def unsubscribe(self):
         global df
@@ -51,7 +45,15 @@ class AccountManager:
 
         save()
 
-    def get_links(self):
+    def get_articles(self):
+        article_list = []
         for keyword in self.keywords.split(','):
+            print("Keyword/s:", keyword, '\n')
             kp = KeywordProcessor(keyword.strip())
-            self.links.append(kp.most_relevant())
+            article_list.append(kp.most_relevant())
+        return article_list
+
+    def display_articles(self):
+        """test function"""
+        article_list = self.get_articles()
+        print("Best Article/s:", article_list[0].title, '\n', article_list[0].text)

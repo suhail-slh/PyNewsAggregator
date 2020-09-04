@@ -34,7 +34,8 @@ Label(window, text='Email ID').pack(side=TOP, expand=True, fill=None)
 email_id = Entry(window)
 email_id.pack(side=TOP, expand=True, fill=None)
 
-Label(window, text='Keywords/Phrases(separated by commas)').pack(side=TOP, expand=True, fill=None)
+keyword_inst = 'Keywords\n(separate the keywords you want in the same link by spaces, different links by commas)'
+Label(window, text=keyword_inst).pack(side=TOP, expand=True, fill=None)
 keywords = Entry(window)
 keywords.pack(side=TOP, expand=True, fill=None)
 
