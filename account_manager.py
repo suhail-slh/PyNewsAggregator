@@ -47,7 +47,7 @@ class AccountManager:
 
     def get_articles(self):
         article_list = []
-        for keyword in self.keywords.split(','):
+        for keyword in self.keywords.split('-'):
             print("Keyword/s:", keyword, '\n')
             kp = KeywordProcessor(keyword.strip())
             article_list.append(kp.most_relevant())
