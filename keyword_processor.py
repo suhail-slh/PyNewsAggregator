@@ -68,10 +68,7 @@ class KeywordProcessor:
                 article.parse()
                 matches = re.findall(pattern, article.text, re.IGNORECASE)
                 matches = set([x.casefold() for x in matches])
-                try:
-                    age = get_age(link.get('date', ''))
-                except:
-                    pass
+                age = get_age(link.get('date', ''))
                 print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
                       '\nLink:', link.get('link', ''), '\n')
                 if len(matches) >= max_matches and age <= min_age:
@@ -84,4 +81,3 @@ class KeywordProcessor:
         most_relevant_article.download()
         most_relevant_article.parse()
         return most_relevant_article
-    
