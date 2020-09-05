@@ -60,3 +60,4 @@ class AccountManager:
         print("Keyword/s:", self.keywords, '\n')
         for article in article_list:
             print(article.title, '\n\n', article.text, '\n\n')
+ 
