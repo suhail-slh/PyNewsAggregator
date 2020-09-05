@@ -56,4 +56,7 @@ class AccountManager:
     def display_articles(self):
         """test function"""
         article_list = self.get_articles()
-        print("Best Article/s:", article_list[0].title, '\n', article_list[0].text)
+        print("Best Article/s:")
+        print("Keyword/s:", self.keywords, '\n')
+        for article in article_list:
+            print(article.title, '\n\n', article.text, '\n\n')
