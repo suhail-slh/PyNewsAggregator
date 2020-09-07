@@ -53,10 +53,7 @@ class KeywordProcessor:
 
     def most_relevant(self):
         """returns most relevant article"""
-        pattern = ''
-        for keyword in self.keyword.split():
-            pattern = pattern + keyword + '|'
-        pattern = pattern[:len(pattern) - 1]
+        pattern = self.keyword.replace(' ', '|')
         # print(pattern)
         max_matches = 0
         most_relevant_site = ''
