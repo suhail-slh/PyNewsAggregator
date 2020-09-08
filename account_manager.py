@@ -35,8 +35,6 @@ class AccountManager:
 
         save()
 
-        self.display_articles()
-
     def unsubscribe(self):
         global df
         filter_ = df["Email ID"] != self.email_id
@@ -48,7 +46,7 @@ class AccountManager:
     def get_articles(self):
         article_list = []
         for keyword in self.keywords.split('-'):
-            print("Keyword/s:", keyword, '\n')
+            # print("Keyword/s:", keyword, '\n')
             kp = KeywordProcessor(keyword.strip())
             article_list.append(kp.most_relevant())
         return article_list
@@ -59,4 +57,4 @@ class AccountManager:
         print("Best Article/s:")
         print("Keyword/s:", self.keywords, '\n')
         for article in article_list:
-            print(article.title, '\n\n', article.text, '\n\n')
+            print(article[0].title, '\n\n', article[0].text, '\n\n', article[1], '\n\n')
