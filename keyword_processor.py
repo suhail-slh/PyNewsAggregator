@@ -44,13 +44,6 @@ class KeywordProcessor:
         except:
             return ''
 
-    def display_links(self):
-        try:
-            for link in self.fetch_links():
-                print(link.get('link', ''))
-        except:
-            pass
-
     def most_relevant(self):
         """returns most relevant article"""
         pattern = self.keyword.replace(' ', '|')
@@ -67,8 +60,8 @@ class KeywordProcessor:
                 matches = set([x.casefold() for x in matches])
                 try:
                     age = get_age(link.get('date', ''))
-                    print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
-                          '\nLink:', link.get('link', ''), '\n')
+                    '''print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
+                          '\nLink:', link.get('link', ''), '\n')'''
                     if len(matches) >= max_matches and age <= min_age:
                         max_matches = len(matches)
                         min_age = age
@@ -80,4 +73,12 @@ class KeywordProcessor:
         most_relevant_article = Article(most_relevant_site)
         most_relevant_article.download()
         most_relevant_article.parse()
-        return most_relevant_article
+        return most_relevant_article, most_relevant_site
+
+    def display_links(self):
+        """test function"""
+        try:
+            for link in self.fetch_links():
+                print(link.get('link', ''))
+        except:
+            pass
