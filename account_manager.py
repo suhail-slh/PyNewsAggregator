@@ -19,6 +19,9 @@ df = pd.DataFrame(database)
 
 
 def save():
+    """
+    saves changes to the user database
+    """
     with open(src, 'w') as f_:
         df.to_csv(f_, index=False)
 
@@ -29,6 +32,9 @@ class AccountManager:
         self.keywords = keywords.strip()
 
     def subscribe(self):
+        """
+        subscribes the user to the mailing list
+        """
         global df
         self.unsubscribe()  # to overwrite account preferences
         df = df.append({'Email ID': self.email_id, 'Keywords': self.keywords}, ignore_index=True)
@@ -36,6 +42,9 @@ class AccountManager:
         save()
 
     def unsubscribe(self):
+        """
+        unsubscribes the user from the mailing list\
+        """
         global df
         filter_ = df["Email ID"] != self.email_id
         df.where(filter_, inplace=True)
@@ -44,6 +53,9 @@ class AccountManager:
         save()
 
     def get_articles(self):
+        """
+        returns a list of articles most relevant to he given keyword
+        """
         article_list = []
         for keyword in self.keywords.split('-'):
             # print("Keyword/s:", keyword, '\n')
@@ -52,7 +64,10 @@ class AccountManager:
         return article_list
 
     def display_articles(self):
-        """test function"""
+        """
+        test function
+        displays the articles and their links
+        """
         article_list = self.get_articles()
         print("Best Article/s:")
         print("Keyword/s:", self.keywords, '\n')

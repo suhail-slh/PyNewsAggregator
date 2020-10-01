@@ -4,11 +4,13 @@ try:
     import datetime
     import re
 except:
-    print("missing module/s: GoogleNews and/or datetime")
+    print("missing module/s: GoogleNews/newspaper/datetime/re")
 
 
 def get_age(x):
-    """returns age in minutes"""
+    """
+    returns age of the article in minutes
+    """
     x = x.split()
     age = int(x[0])
     # print(x[1])
@@ -26,6 +28,9 @@ class KeywordProcessor:
         self.keyword = keyword
 
     def fetch_links(self):
+        """
+        fetches all the recent links relevant to given keywords
+        """
         try:
             to_date = datetime.datetime.now()
             from_date = to_date - datetime.timedelta(days=1)
@@ -45,7 +50,12 @@ class KeywordProcessor:
             return ''
 
     def most_relevant(self):
-        """returns most relevant article"""
+        """
+        returns most relevant article
+        the factors considered to determine degree of relevance are:
+            -age of the article(lesser is better)
+            -number of distinct keywords present(greater is better)
+        """
         pattern = self.keyword.replace(' ', '|')
         # print(pattern)
         max_matches = 0
@@ -76,7 +86,10 @@ class KeywordProcessor:
         return most_relevant_article, most_relevant_site
 
     def display_links(self):
-        """test function"""
+        """
+        test function
+        displays all links fetched
+        """
         try:
             for link in self.fetch_links():
                 print(link.get('link', ''))
