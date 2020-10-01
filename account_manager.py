@@ -5,7 +5,7 @@ try:
 except:
     print("missing module: pandas")
 
-src = r"C:\Users\mohammed\Documents\Projects\tests\user_database.csv"  # add the path to the user database
+src = r"user_database.csv"  # user database path can be modified here
 
 try:
     f = open(src, 'x')
@@ -36,14 +36,14 @@ class AccountManager:
         subscribes the user to the mailing list
         """
         global df
-        self.unsubscribe()  # to overwrite account preferences
+        self.unsubscribe()  # to overwrite keywords if account already exists
         df = df.append({'Email ID': self.email_id, 'Keywords': self.keywords}, ignore_index=True)
 
         save()
 
     def unsubscribe(self):
         """
-        unsubscribes the user from the mailing list\
+        unsubscribes the user from the mailing list
         """
         global df
         filter_ = df["Email ID"] != self.email_id
@@ -54,7 +54,7 @@ class AccountManager:
 
     def get_articles(self):
         """
-        returns a list of articles most relevant to he given keyword
+        returns a list of articles most relevant to the given keyword
         """
         article_list = []
         for keyword in self.keywords.split('-'):
@@ -66,7 +66,7 @@ class AccountManager:
     def display_articles(self):
         """
         test function
-        displays the articles and their links
+        displays the most relevant articles and their links
         """
         article_list = self.get_articles()
         print("Best Article/s:")
