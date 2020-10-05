@@ -70,8 +70,8 @@ class KeywordProcessor:
                 matches = set([x.casefold() for x in matches])
                 try:
                     age = get_age(link.get('date', ''))
-                    print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
-                          '\nLink:', link.get('link', ''), '\n')
+                    #print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
+                         # '\nLink:', link.get('link', ''), '\n')
                     if len(matches) >= max_matches and age <= min_age:
                         max_matches = len(matches)
                         min_age = age
@@ -83,4 +83,5 @@ class KeywordProcessor:
         most_relevant_article = Article(most_relevant_site)
         most_relevant_article.download()
         most_relevant_article.parse()
+        most_relevant_article.nlp()
         return most_relevant_article
