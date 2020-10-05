@@ -83,6 +83,7 @@ class KeywordProcessor:
         most_relevant_article = Article(most_relevant_site)
         most_relevant_article.download()
         most_relevant_article.parse()
+        most_relevant_article.nlp()
         return most_relevant_article, most_relevant_site
 
     def display_links(self):
