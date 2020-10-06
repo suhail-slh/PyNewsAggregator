@@ -5,7 +5,7 @@ import datetime
 import csv
 from account_manager import AccountManager
 def fileOperation():
-    filename = "test_final.csv"
+    filename = "g_form.csv"
     fields = []
     rows = []
     details={}
@@ -18,8 +18,8 @@ def fileOperation():
     except:
         print("File handling error!")
     for row in range(len(rows)):
-        if not rows[row][0].isspace():
-            details[rows[row][0]] = rows[row][-1]
+        if not rows[row][1].isspace():
+            details[rows[row][1]] = rows[row][-1]
     return details
 
 class sendEmail:
@@ -32,7 +32,7 @@ class sendEmail:
             try:
                 current_time = int(time.time())
                 f_time=str(datetime.datetime.fromtimestamp(current_time).strftime("%I:%M:%S:%p"))
-                if f_time=='01:19:30:AM':
+                if f_time=='01:59:00:PM':
                     try:
                         for self.key,self.value in self.details.items():
                             self.receiver=self.key
