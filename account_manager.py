@@ -66,10 +66,10 @@ class AccountManager:
     def display_articles(self):
         """
         test function
-        displays the most relevant articles and their links
+        displays the most relevant articles
         """
         article_list = self.get_articles()
         print("Best Article/s:")
         print("Keyword/s:", self.keywords, '\n')
         for article in article_list:
-            print(article[0].title, '\n\n', article[0].text, '\n\n', article[1], '\n\n')
+            print(article.title, '\n\n', article.text, '\n\n', article.summary, '\n\n')
