@@ -4,11 +4,13 @@ try:
     import datetime
     import re
 except:
-    print("missing module/s: GoogleNews and/or datetime")
+    print("missing module/s: GoogleNews/newspaper/datetime/re")
 
 
 def get_age(x):
-    """returns age in minutes"""
+    """
+    returns age of the article in minutes
+    """
     x = x.split()
     age = int(x[0])
     # print(x[1])
@@ -26,6 +28,9 @@ class KeywordProcessor:
         self.keyword = keyword
 
     def fetch_links(self):
+        """
+        fetches all the recent links relevant to given keywords
+        """
         try:
             to_date = datetime.datetime.now()
             from_date = to_date - datetime.timedelta(days=1)
@@ -44,19 +49,14 @@ class KeywordProcessor:
         except:
             return ''
 
-    def display_links(self):
-        try:
-            for link in self.fetch_links():
-                print(link.get('link', ''))
-        except:
-            pass
-
     def most_relevant(self):
-        """returns most relevant article"""
-        pattern = ''
-        for keyword in self.keyword.split():
-            pattern = pattern + keyword + '|'
-        pattern = pattern[:len(pattern) - 1]
+        """
+        returns most relevant article
+        the factors considered to determine degree of relevance are:
+            -age of the article(lesser is better)
+            -number of distinct keywords present(greater is better)
+        """
+        pattern = self.keyword.replace(' ', '|')
         # print(pattern)
         max_matches = 0
         most_relevant_site = ''
@@ -72,6 +72,9 @@ class KeywordProcessor:
                     age = get_age(link.get('date', ''))
                     #print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
                          # '\nLink:', link.get('link', ''), '\n')
+
+                    '''print('Current article age:', age, 'mins\nBest article age:', min_age, 'mins\nMatches:', matches,
+                          '\nLink:', link.get('link', ''), '\n')'''
                     if len(matches) >= max_matches and age <= min_age:
                         max_matches = len(matches)
                         min_age = age
@@ -85,3 +88,14 @@ class KeywordProcessor:
         most_relevant_article.parse()
         most_relevant_article.nlp()
         return most_relevant_article
+
+    def display_links(self):
+        """
+        test function
+        displays all links fetched
+        """
+        try:
+            for link in self.fetch_links():
+                print(link.get('link', ''))
+        except:
+            pass

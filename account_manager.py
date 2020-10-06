@@ -5,8 +5,12 @@ try:
 except:
     print("missing module: pandas")
 
+
 #src = r"C:\Users\mohammed\Documents\Projects\tests\user_database.csv"  # add the path to the user database
 src = r"C:\Users\sayan\PycharmProjects\NewsAggregator\test_final.csv"
+#src = r"user_database.csv"  # user database path can be modified here
+
+
 try:
     f = open(src, 'x')
     f.write("Email ID,Keywords")
@@ -19,6 +23,9 @@ df = pd.DataFrame(database)
 
 
 def save():
+    """
+    saves changes to the user database
+    """
     with open(src, 'w') as f_:
         df.to_csv(f_, index=False)
 
@@ -29,15 +36,19 @@ class AccountManager:
         self.keywords = keywords.strip()
 
     def subscribe(self):
+        """
+        subscribes the user to the mailing list
+        """
         global df
-        self.unsubscribe()  # to overwrite account preferences
+        self.unsubscribe()  # to overwrite keywords if account already exists
         df = df.append({'Email ID': self.email_id, 'Keywords': self.keywords}, ignore_index=True)
 
         save()
 
-        self.display_articles()
-
     def unsubscribe(self):
+        """
+        unsubscribes the user from the mailing list
+        """
         global df
         filter_ = df["Email ID"] != self.email_id
         df.where(filter_, inplace=True)
@@ -46,17 +57,25 @@ class AccountManager:
         save()
 
     def get_articles(self):
+        """
+        returns a list of articles most relevant to the given keyword
+        """
         article_list = []
         for keyword in self.keywords.split('-'):
-            print("Keyword/s:", keyword, '\n')
+
+            #print("Keyword/s:", keyword, '\n')
+            # print("Keyword/s:", keyword, '\n')
             kp = KeywordProcessor(keyword.strip())
             article_list.append(kp.most_relevant())
         return article_list
 
     def display_articles(self):
-        """test function"""
+        """
+        test function
+        displays the most relevant articles
+        """
         article_list = self.get_articles()
         print("Best Article/s:")
         print("Keyword/s:", self.keywords, '\n')
         for article in article_list:
-            print(article.title, '\n\n', article.text, '\n\n')
+            print(article.title, '\n\n', article.text, '\n\n', article.summary, '\n\n')
