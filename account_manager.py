@@ -5,8 +5,8 @@ try:
 except:
     print("missing module: pandas")
 
-src = r"C:\Users\mohammed\Documents\Projects\tests\user_database.csv"  # add the path to the user database
-
+#src = r"C:\Users\mohammed\Documents\Projects\tests\user_database.csv"  # add the path to the user database
+src = r"C:\Users\sayan\PycharmProjects\NewsAggregator\test_final.csv"
 try:
     f = open(src, 'x')
     f.write("Email ID,Keywords")
@@ -47,7 +47,7 @@ class AccountManager:
 
     def get_articles(self):
         article_list = []
-        for keyword in self.keywords.split(','):
+        for keyword in self.keywords.split('-'):
             print("Keyword/s:", keyword, '\n')
             kp = KeywordProcessor(keyword.strip())
             article_list.append(kp.most_relevant())
