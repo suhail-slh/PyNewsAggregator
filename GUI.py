@@ -1,10 +1,9 @@
-from account_manager import AccountManager
-
 try:
+    from account_manager import AccountManager
     import tkinter as tk
     from tkinter import *
 except:
-    print("missing module: tkinter")
+    print("missing module/s: tkinter/account_manager")
 
 window = tk.Tk(screenName="PyNewsAggregator", baseName=None, className='PyNewsAggregator', useTk=1)
 

@@ -1,15 +1,10 @@
-from keyword_processor import KeywordProcessor
-
 try:
+    from keyword_processor import KeywordProcessor
     import pandas as pd
 except:
-    print("missing module: pandas")
+    print("missing module/s: pandas/keyword_processor")
 
-
-#src = r"C:\Users\mohammed\Documents\Projects\tests\user_database.csv"  # add the path to the user database
-src = r"C:\Users\sayan\PycharmProjects\NewsAggregator\test_final.csv"
-#src = r"user_database.csv"  # user database path can be modified here
-
+src = r"user_database.csv"  # user database path can be modified here
 
 try:
     f = open(src, 'x')
@@ -26,8 +21,12 @@ def save():
     """
     saves changes to the user database
     """
-    with open(src, 'w') as f_:
-        df.to_csv(f_, index=False)
+    try:
+        with open(src, 'w') as f_:
+            df.to_csv(f_, index=False)
+    except:
+        print("cannot write to database file as it is already open elsewhere")
+        pass
 
 
 class AccountManager:
@@ -62,11 +61,10 @@ class AccountManager:
         """
         article_list = []
         for keyword in self.keywords.split('-'):
-
-            #print("Keyword/s:", keyword, '\n')
             # print("Keyword/s:", keyword, '\n')
             kp = KeywordProcessor(keyword.strip())
             article_list.append(kp.most_relevant())
+        article_list = [x for x in article_list if x]   # removes None objects
         return article_list
 
     def display_articles(self):
@@ -78,4 +76,4 @@ class AccountManager:
         print("Best Article/s:")
         print("Keyword/s:", self.keywords, '\n')
         for article in article_list:
-            print(article.title, '\n\n', article.text, '\n\n', article.summary, '\n\n')
+            print("Title:", article.title, '\n\n', article.text.replace('\n\n', '\n'), '\n\nSummary:', article.summary, '\n\n')
